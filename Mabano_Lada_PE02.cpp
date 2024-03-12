@@ -129,8 +129,7 @@ void compressionLoop() {
   }
 }
 
-string expandString(string s) {
-  const string invalid = "Invalid Input";
+string expandString(const string s) {
   string expandedString = "";
   string prefixNum = "";
   for (int i = 0; i < s.size(); i++) {
@@ -159,6 +158,6 @@ string expandString(string s) {
   return expandedString;
 }
 
-string compressString(string s) {
-
+string compressString(const string s) {
+  
 }
