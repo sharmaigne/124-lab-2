@@ -1,11 +1,9 @@
 #ifndef DEFINITIONS_H
 #define DEFINITIONS_H
 
-#include <memory>
-#include <stdexcept>
 #include <string>
-#include <vector>
 #include <ctype.h>
+#include <stdlib.h>
 
 using namespace std;
 

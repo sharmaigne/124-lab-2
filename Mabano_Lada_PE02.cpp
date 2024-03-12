@@ -13,9 +13,11 @@
 using namespace std;
 
 int main(void) {
+  system("clear||cls");
   bool running = true;
 
   while (running) {
+    system("clear||cls");
     switch (menu()) {
       case PROG_DESC:
         programDescription();
@@ -38,7 +40,7 @@ int main(void) {
 
 char menu(void) {
   char ret;
-  cout << "Welcome to this String Expansion/Compression program! Please choose an action to perform...\n"
+  cout << "\n\nWelcome to this String Expansion/Compression program! Please choose an action to perform...\n"
           "[P] Program Description\n"
           "[E] String Expansion\n"
           "[C] String Compression\n"
@@ -47,6 +49,7 @@ char menu(void) {
   cin >> ret;
   cin.ignore(1000, '\n');
 
+  system("clear||cls");
   return toupper(ret); /* lowercase versions of P E C X should be valid */
 }
 
@@ -68,7 +71,10 @@ void programDescription(void) {
           "Tyrael: compression, testing\n"
           "Sharmaigne: boilerplate code, expansion\n\n"
           "\t\t============================\n\n";
-  
+  char exit;
+  cout << "Enter any key to continue: ";
+  cin >> exit;
+  cin.ignore(1000, '\n');
 }
 
 void expansionLoop() {
@@ -110,7 +116,7 @@ void compressionLoop() {
   cout << "\n\n\t\t==== STRING COMPRESSION ====\n\n"
           "For each valid expanded string of format \n"
           /* insert grammar here */
-          "\t\t==========================\n\n";
+          "\t\t============================\n\n";
   
 
   while (true) {
