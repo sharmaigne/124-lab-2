@@ -81,10 +81,14 @@ void expansionLoop() {
   
 
   while (true) {
-    cout << "Enter a compressed string: ";
+    cout << "\nEnter a compressed string: ";
     getline(cin, s);
-
-    cout << "\nExpanded form: " << expandString(s);
+    
+    string result = expandString(s);
+    if (result == "invalid input")
+      cout << "\nInvalid input, please follow specified format for compressed strings.";
+    else
+      cout << "\nExpanded form: " << result;
 
     cout << "\n\nDo you want to expand another string?\n\n"
             "[X] NO\n"
@@ -127,7 +131,26 @@ void compressionLoop() {
 }
 
 string expandString(string s) {
+  /* valid:  */
+  string invalid = "Invalid Input";
+  string expandedString = "";
+  string prefixNum = "";
+  for (int i = 0; i < s.size(); i++) {
 
+    /* while digit, collect into prefixNum */
+    while (isdigit(s[i]))
+      prefixNum += s[i++];
+    
+    /* i >= s.size() : if gets here if the string ends with a digit (invalid)
+    For n=1, the value of n SHOULD NOT be shown (?) */
+    if (i >= s.size() || !isalpha(s[i]) || prefixNum == "1")
+      return invalid;
+
+    expandedString += std::string( (prefixNum == "") ? 1 : stoi(prefixNum), s[i] );
+    prefixNum = "";
+  }
+
+  return expandedString;
 }
 
 string compressString(string s) {

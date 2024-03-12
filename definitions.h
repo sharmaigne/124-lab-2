@@ -5,7 +5,7 @@
 #include <stdexcept>
 #include <string>
 #include <vector>
-#include <cmath> /* for floor */
+#include <ctype.h>
 
 using namespace std;
 
