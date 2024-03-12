@@ -35,4 +35,20 @@ void expansionLoop(void);
  */
 void compressionLoop(void);
 
+/**
+ * Expand a valid compressed string eg. "2aA4b" -> "aaAbbbb" 
+ * 
+ * @param s compressed string to be expanded.
+ * @return expanded version of the string, "Invalid Input" if s does not follow the correct format.
+ */
+string expandString(string s);
+
+/**
+ * Expand a valid expanded string eg. "aaAbbbb" -> "2aA4b"
+ * 
+ * @param s expanded string to be compressed.
+ * @return compressed version of the string, "Invalid Input" if s does not follow the correct format.
+ */
+string compressString(string s);
+
 #endif // DEFINITIONS_H
