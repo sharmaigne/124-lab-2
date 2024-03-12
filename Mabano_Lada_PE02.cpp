@@ -6,7 +6,9 @@
  * CMSC 124 PE02: String Expansion/Compression
  */
 #include "definitions.h"
+#include <cctype>
 #include <iostream>
+#include <sstream>
 
 using namespace std;
 
@@ -129,7 +131,7 @@ void compressionLoop() {
   }
 }
 
-string expandString(string s) {
+string expandString(const string s) {
   string expandedString = "";
   string prefixNum = "";
   for (int i = 0; i < s.size(); i++) {
@@ -157,6 +159,34 @@ string expandString(string s) {
   return expandedString;
 }
 
-string compressString(string s) {
+string compressString(const string s) {
+  stringstream ss;    // we use a stringstream for easy formatting
+  int currCount = 1;
+  char previous = s[0];
 
+  for (size_t i = 1; i < s.length(); i++) {
+    if (!isalpha(s[i]))
+      return INVALID;
+
+    if (previous == s[i]) {
+      currCount++;
+      continue;
+    }
+
+    if (currCount == 1)
+      ss << previous;
+    else
+      ss << currCount << previous;
+
+    previous = s[i];
+    currCount = 1;
+  }
+  previous = s[s.length() - 1];
+  // last grouping
+  if (currCount == 1)
+    ss << previous;
+  else
+    ss << currCount << previous;
+
+  return ss.str();
 }
