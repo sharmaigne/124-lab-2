@@ -5,11 +5,12 @@
 #include <stdexcept>
 #include <string>
 #include <vector>
-#include <cmath> /* for floor */
+#include <ctype.h>
 
 using namespace std;
 
 enum MENU_CHOICES {EXIT = 'X', PROG_DESC = 'P', EXPANSION = 'E', COMPRESSION = 'C'};
+#define INVALID "Invalid Input" 
 
 /**
  * Menu interface, returns a choice value based on what user inputs.
