@@ -150,9 +150,8 @@ string expandString(const string s) {
       NOTE: can be done more elegantly with string constructor */
     if (prefixNum == "")
       prefixNum = "1";
-    for (int _ = 0; _ < stoi(prefixNum); _++) {
+    for (int _ = 0; _ < stoi(prefixNum); _++)
       expandedString += s[i];
-    }
     
     prefixNum = "";
   }
