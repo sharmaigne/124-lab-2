@@ -7,7 +7,6 @@
  */
 #include "definitions.h"
 #include <iostream>
-#include <string>
 
 using namespace std;
 
@@ -76,7 +75,7 @@ void expansionLoop() {
 
   cout << "\n\n\t\t==== STRING EXPANSION ====\n\n"
           "For each valid compressed string of format \n"
-          /* insert grammar here */
+          /* TODO: insert grammar here */
           "\t\t==========================\n\n";
   
 
@@ -85,7 +84,7 @@ void expansionLoop() {
     getline(cin, s);
     
     string result = expandString(s);
-    if (result == "invalid input")
+    if (result == INVALID)
       cout << "\nInvalid input, please follow specified format for compressed strings.";
     else
       cout << "\nExpanded form: " << result;
@@ -131,8 +130,7 @@ void compressionLoop() {
 }
 
 string expandString(string s) {
-  /* valid:  */
-  string invalid = "Invalid Input";
+  const string invalid = "Invalid Input";
   string expandedString = "";
   string prefixNum = "";
   for (int i = 0; i < s.size(); i++) {
@@ -141,12 +139,20 @@ string expandString(string s) {
     while (isdigit(s[i]))
       prefixNum += s[i++];
     
-    /* i >= s.size() : if gets here if the string ends with a digit (invalid)
-    For n=1, the value of n SHOULD NOT be shown (?) */
+    /*  i >= s.size() : if gets here if the string ends with a digit (invalid)
+        !isalpha(s[i]) : invalid character (non alpha-numeric)
+        prefixNum == "1" : For n=1, the value of n SHOULD NOT be shown (?) */
     if (i >= s.size() || !isalpha(s[i]) || prefixNum == "1")
-      return invalid;
+      return INVALID;
 
-    expandedString += std::string( (prefixNum == "") ? 1 : stoi(prefixNum), s[i] );
+    /* appends to expandedString the character s[i] prefixNum times
+      NOTE: can be done more elegantly with string constructor */
+    if (prefixNum == "")
+      prefixNum = "1";
+    for (int _ = 0; _ < stoi(prefixNum); _++) {
+      expandedString += s[i];
+    }
+    
     prefixNum = "";
   }
 

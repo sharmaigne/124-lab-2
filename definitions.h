@@ -10,6 +10,7 @@
 using namespace std;
 
 enum MENU_CHOICES {EXIT = 'X', PROG_DESC = 'P', EXPANSION = 'E', COMPRESSION = 'C'};
+#define INVALID "Invalid Input" 
 
 /**
  * Menu interface, returns a choice value based on what user inputs.
