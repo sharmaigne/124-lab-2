@@ -57,7 +57,8 @@ void programDescription(void) {
   cout << "\n\n\t\t==== PROGRAM DESCRIPTION ====\n\n"
           "Legolas Tyrael B. Lada       | 2022-04734\n"
           "Sharmaigne Angelie C. Mabano | 2022-03464\n"
-          "March 12, 2024 - March 13, 2024\n=====\n"
+          "March 12, 2024 - March 13, 2024\n"
+          "\n=====\n"
           "Menu Descriptions:\n\n"
           "- [P] Program Description: Prints out the program description to "
           "stdout.\n"
@@ -70,6 +71,9 @@ void programDescription(void) {
           "Work distribution:\n"
           "Tyrael: compression, testing\n"
           "Sharmaigne: boilerplate code, expansion\n\n"
+          "\n=====\n"
+          "Additional information:\n"
+          "It was decided that string expansion translates both \"1a\" and \"a\" as \"a\" and accepts \"0a\" as \"\".\n\n"
           "\t\t============================\n\n";
   char exit;
   cout << "Enter any key to continue: ";
@@ -82,8 +86,8 @@ void expansionLoop() {
   char exit;
 
   cout << "\n\n\t\t==== STRING EXPANSION ====\n\n"
-          "For each valid compressed string of format \n"
-          /* TODO: insert grammar here */
+          "For each valid compressed string of format: { <nX> | <X> } \n"
+          "where n is a positive number (0 to INT MAX) and X is a character in the english alphabet.\n\n"
           "\t\t==========================\n\n";
   
 
@@ -95,12 +99,12 @@ void expansionLoop() {
     if (result == INVALID)
       cout << "\nInvalid input, please follow specified format for compressed strings.";
     else
-      cout << "\nExpanded form: " << result;
+      cout << "Expanded form: " << result;
 
     cout << "\n\nDo you want to expand another string?\n\n"
             "[X] NO\n"
             "[other] YES\n"
-            "\nChoice: ";
+            "Choice: ";
 
     cin >> exit;
     cin.ignore(1000, '\n');
@@ -114,21 +118,21 @@ void compressionLoop() {
   char exit;
 
   cout << "\n\n\t\t==== STRING COMPRESSION ====\n\n"
-          "For each valid expanded string of format \n"
-          /* insert grammar here */
+          "For each valid expanded string of format: { X } \n"
+          "where X is a character in the english alphabet.\n\n"
           "\t\t============================\n\n";
   
 
   while (true) {
-    cout << "Enter an expanded string: ";
+    cout << "\nEnter an expanded string: ";
     getline(cin, s);
 
-    cout << "\nCompressed form: " << compressString(s);
+    cout << "Compressed form: " << compressString(s);
 
     cout << "\n\nDo you want to compress another string?\n\n"
             "[X] NO\n"
             "[other] YES\n"
-            "\nChoice: ";
+            "Choice: ";
 
     cin >> exit;
     cin.ignore(1000, '\n');
@@ -147,9 +151,9 @@ string expandString(const string s) {
       prefixNum += s[i++];
     
     /*  i >= s.size() : if gets here if the string ends with a digit (invalid)
-        !isalpha(s[i]) : invalid character (non alpha-numeric)
-        prefixNum == "1" : For n=1, the value of n SHOULD NOT be shown (?) */
-    if (i >= s.size() || !isalpha(s[i]) || prefixNum == "1")
+        !isalpha(s[i]) : invalid character (non alpha-numeric)*/
+    /* TODO: add check for if stoi(prefixNum) > INT_MAX (throws out_of_range error) */
+    if (i >= s.size() || !isalpha(s[i]))
       return INVALID;
 
     /* appends to expandedString the character s[i] prefixNum times
@@ -169,6 +173,10 @@ string compressString(const string s) {
   stringstream ss;    // we use a stringstream for easy formatting
   int currCount = 1;
   char previous = s[0];
+
+  /* s[0] is the only character not caught by the check inside the for loop */
+  if (!isalpha(s[0]))
+    return INVALID;
 
   for (size_t i = 1; i < s.length(); i++) {
     if (!isalpha(s[i]))
