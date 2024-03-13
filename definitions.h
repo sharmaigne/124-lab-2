@@ -1,11 +1,9 @@
 #ifndef DEFINITIONS_H
 #define DEFINITIONS_H
 
-#include <memory>
-#include <stdexcept>
 #include <string>
-#include <vector>
 #include <ctype.h>
+#include <stdlib.h>
 
 using namespace std;
 
@@ -42,7 +40,7 @@ void compressionLoop(void);
  * @param s compressed string to be expanded.
  * @return expanded version of the string, "Invalid Input" if s does not follow the correct format.
  */
-string expandString(string s);
+string expandString(const string s);
 
 /**
  * Expand a valid expanded string eg. "aaAbbbb" -> "2aA4b"
@@ -50,6 +48,6 @@ string expandString(string s);
  * @param s expanded string to be compressed.
  * @return compressed version of the string, "Invalid Input" if s does not follow the correct format.
  */
-string compressString(string s);
+string compressString(const string s);
 
 #endif // DEFINITIONS_H

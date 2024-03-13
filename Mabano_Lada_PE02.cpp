@@ -6,14 +6,18 @@
  * CMSC 124 PE02: String Expansion/Compression
  */
 #include "definitions.h"
+#include <cctype>
 #include <iostream>
+#include <sstream>
 
 using namespace std;
 
 int main(void) {
+  system("clear||cls");
   bool running = true;
 
   while (running) {
+    system("clear||cls");
     switch (menu()) {
       case PROG_DESC:
         programDescription();
@@ -36,7 +40,7 @@ int main(void) {
 
 char menu(void) {
   char ret;
-  cout << "Welcome to this String Expansion/Compression program! Please choose an action to perform...\n"
+  cout << "\n\nWelcome to this String Expansion/Compression program! Please choose an action to perform...\n"
           "[P] Program Description\n"
           "[E] String Expansion\n"
           "[C] String Compression\n"
@@ -45,6 +49,7 @@ char menu(void) {
   cin >> ret;
   cin.ignore(1000, '\n');
 
+  system("clear||cls");
   return toupper(ret); /* lowercase versions of P E C X should be valid */
 }
 
@@ -66,7 +71,10 @@ void programDescription(void) {
           "Tyrael: compression, testing\n"
           "Sharmaigne: boilerplate code, expansion\n\n"
           "\t\t============================\n\n";
-  
+  char exit;
+  cout << "Enter any key to continue: ";
+  cin >> exit;
+  cin.ignore(1000, '\n');
 }
 
 void expansionLoop() {
@@ -108,7 +116,7 @@ void compressionLoop() {
   cout << "\n\n\t\t==== STRING COMPRESSION ====\n\n"
           "For each valid expanded string of format \n"
           /* insert grammar here */
-          "\t\t==========================\n\n";
+          "\t\t============================\n\n";
   
 
   while (true) {
@@ -129,7 +137,7 @@ void compressionLoop() {
   }
 }
 
-string expandString(string s) {
+string expandString(const string s) {
   string expandedString = "";
   string prefixNum = "";
   for (int i = 0; i < s.size(); i++) {
@@ -157,6 +165,34 @@ string expandString(string s) {
   return expandedString;
 }
 
-string compressString(string s) {
+string compressString(const string s) {
+  stringstream ss;    // we use a stringstream for easy formatting
+  int currCount = 1;
+  char previous = s[0];
 
+  for (size_t i = 1; i < s.length(); i++) {
+    if (!isalpha(s[i]))
+      return INVALID;
+
+    if (previous == s[i]) {
+      currCount++;
+      continue;
+    }
+
+    if (currCount == 1)
+      ss << previous;
+    else
+      ss << currCount << previous;
+
+    previous = s[i];
+    currCount = 1;
+  }
+  previous = s[s.length() - 1];
+  // last grouping
+  if (currCount == 1)
+    ss << previous;
+  else
+    ss << currCount << previous;
+
+  return ss.str();
 }
